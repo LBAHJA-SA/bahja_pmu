@@ -6,7 +6,7 @@ import os, json, sqlite3, secrets, hashlib
 from datetime import datetime, timedelta
 
 auth_bp = Blueprint('auth', __name__)
-USERS_DB = os.path.join(os.path.dirname(__file__), '..', 'users.db')
+USERS_DB = os.environ.get("USERS_DB") or os.path.join(os.path.dirname(__file__), '..', 'users.db')
 _pg = None
 
 def _now():

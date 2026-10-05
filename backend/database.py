@@ -33,7 +33,7 @@ def _resolve_db_path(base_dir, env_val=None):
 
 
 DB_PATH = _resolve_db_path(os.path.dirname(__file__), os.environ.get("ARCHIVE_DB"))
-ARCHIVE_DIR = os.path.join(os.path.dirname(__file__), "archives")
+ARCHIVE_DIR = os.environ.get("ARCHIVE_DIR") or os.path.join(os.path.dirname(__file__), "archives")
 
 
 def get_db():

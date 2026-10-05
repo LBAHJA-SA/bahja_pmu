@@ -31,7 +31,7 @@ import sqlite3
 import time
 from typing import Any, Dict, List, Optional
 
-DB_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "flip_log.db")
+DB_PATH = os.environ.get("FLIP_DB") or os.path.join(os.path.dirname(os.path.abspath(__file__)), "flip_log.db")
 
 SCHEMA = """
 CREATE TABLE IF NOT EXISTS flip_log (

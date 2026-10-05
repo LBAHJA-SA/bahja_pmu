@@ -1,4 +1,4 @@
-const REMOTE_API = 'https://backend-production-f0139.up.railway.app'
+const REMOTE_API = 'https://lbahja-sa--bahja-backend-flask-app.modal.run'
 const LEGACY_REMOTE_API = 'https://bahja-turf-api-production.up.railway.app'
 const LOCAL_API = window.location.port === '5173' ? '' : 'http://127.0.0.1:3000'
 const API_BASE = window.location.port === '5173' ? LOCAL_API : REMOTE_API
