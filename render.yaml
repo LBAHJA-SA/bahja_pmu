@@ -1,0 +1,17 @@
+# Render Blueprint — Bahja PMU backend (free tier).
+# Deploys backend/ as a Python web service. The archive reads from the
+# shipped archive_slim.db (48 MB); users/auth use Neon Postgres via DATABASE_URL.
+services:
+  - type: web
+    name: bahja-backend
+    runtime: python
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app --bind 0.0.0.0:$PORT --workers 2 --timeout 120
+    plan: free
+    healthCheckPath: /api/health/db
+    envVars:
+      - key: ARCHIVE_DB
+        value: archive_slim.db
+      - key: DATABASE_URL
+        sync: false

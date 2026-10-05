@@ -1,0 +1,11 @@
+# Deploy secrets — LOCAL ONLY. Never commit, never share, never send by email.
+# 1. Copy this file to ".deploy-env" (same folder)
+# 2. Fill the two tokens, then double-click deploy-all.bat
+# Vercel:  https://vercel.com/account/tokens  -> Create (Full Account)  -> vcp_...
+# Railway: https://railway.com/account/tokens -> New Token (Full Access)
+VERCEL_TOKEN=
+RAILWAY_TOKEN=
+# Shared users DB (Postgres on Railway: service Variables -> DATABASE_URL).
+# Used ONLY by backend\start-shared-db.bat so localhost manages production users.
+# WARNING: with this set locally, every admin change touches REAL subscribers.
+DATABASE_URL=

@@ -1,0 +1,35 @@
+archive.db
+archive_backup_phase1.db
+archive_slim_new.db
+archive_slim_20260911.db
+bahja.db
+data.db
+races.db
+users.db
+*.db-journal
+*.db-wal
+*.db-shm
+archives/
+cache/
+logs/
+__pycache__/
+.vercel/
+walk_*.py
+*.log
+
+# The FLIP reading journal. It is one person's record of what the engine said on
+# their own machine, hour by hour; it is not application data, and shipping it
+# would put those readings in the deployed container. The page creates the file
+# on the first press, so a fresh production journal starts empty and belongs to
+# the production box alone.
+FLIP/flip_log.db
+FLIP/flip_log.db-journal
+FLIP/flip_log.db-wal
+FLIP/flip_log.db-shm
+**/flip_log.db
+
+# NOT ignored, deliberately, because the deployed app reads them:
+#   archive_slim.db   database.py falls back to it because archive.db is not shipped
+#   dna_archive.db    the DNA engine's data; engine.py errors out without it
+# Do not add them here. The reason archive.db is absent from production is a
+# size limit, not a preference, and the slim file is the one written for it.

@@ -1,0 +1,43 @@
+.vercel
+node_modules/
+dist/
+.deploy-env
+android/
+release/
+backend/archives/
+backend/cache/
+backend/logs/
+backend/__pycache__/
+backend/*.db-journal
+backend/*.db-wal
+backend/*.db-shm
+backend/archive.db
+backend/archive_backup_phase1.db
+backend/archive_slim_20260911.db
+backend/bahja.db
+backend/data.db
+backend/races.db
+backend/users.db
+backend/walk_*.py
+backend/*.log
+backend/.vercel/
+*.log
+
+# The reading journal is one person's private record, not application data.
+backend/FLIP/flip_log.db
+backend/FLIP/flip_log.db-journal
+backend/FLIP/flip_log.db-wal
+backend/FLIP/flip_log.db-shm
+
+# NOT ignored, because the deployed app reads them and the engine will not start
+# without them: backend/archive_slim.db (48 MB) and backend/dna_archive.db (84 MB).
+# Both are under GitHub's 100 MB single-file ceiling. The 744 MB archive.db is
+# ignored above and is not shipped; database.py falls back to the slim file.
+# Do not add them here.
+
+.vercel
+.env*
+serve_log.txt
+*.bak
+__pycache__/
+*.pyc

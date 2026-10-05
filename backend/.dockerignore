@@ -1,0 +1,17 @@
+archive.db
+archive_backup_phase1.db
+bahja.db
+data.db
+races.db
+users.db
+*.db-journal
+*.db-wal
+*.db-shm
+archives/
+cache/
+logs/
+__pycache__/
+.vercel/
+walk_*.py
+*.log
+!requirements.txt

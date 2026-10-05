@@ -1,0 +1,6 @@
+{
+  "appId": "com.bahja.pmu",
+  "appName": "Bahja PMU",
+  "webDir": "dist",
+  "server": { "androidScheme": "https" }
+}

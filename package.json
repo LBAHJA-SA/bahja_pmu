@@ -1,0 +1,49 @@
+{
+  "name": "bahja-pmu",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "main": "electron-main.cjs",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "electron": "electron .",
+    "electron-dev": "cross-env ELECTRON_DEV_URL=http://localhost:5173 electron .",
+    "dist-exe": "vite build && electron-builder --win nsis"
+  },
+  "build": {
+    "appId": "com.bahja.pmu",
+    "productName": "Bahja PMU",
+    "files": [
+      "dist/**/*",
+      "electron-main.cjs",
+      "package.json"
+    ],
+    "win": {
+      "target": [
+        "nsis"
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    }
+  },
+  "dependencies": {
+    "@capacitor/android": "^8.5.1",
+    "@capacitor/cli": "^8.5.1",
+    "@capacitor/core": "^8.5.1",
+    "lucide-react": "^1.28.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.28.0"
+  },
+  "devDependencies": {
+    "@railway/cli": "^5.62.1",
+    "@vitejs/plugin-react": "^4.3.4",
+    "electron": "^44.3.0",
+    "electron-builder": "^26.15.3",
+    "vite": "^6.0.0"
+  }
+}

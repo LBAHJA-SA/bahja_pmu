@@ -1,0 +1,31 @@
+android
+release
+backend
+node_modules
+dist
+*.log
+*.bat
+electron-main.cjs
+capacitor.config.json
+*.bak
+
+# Secrets. These four are on this machine and nowhere else, and
+# `vercel deploy` uploads every file that is not listed here: when a
+# .vercelignore exists it is the ONLY ignore file Vercel reads, and .gitignore
+# does not apply to a direct deploy. Without these lines the Vercel token, the
+# Railway token, the production Postgres password and the OIDC token were all
+# on their way to a public deployment. The exact names are written out as well
+# as the patterns, so the block does not depend on how the matcher reads a
+# glob.
+.env
+.env.local
+.env.*
+.deploy-env
+.deploy-env.TEMPLATE
+
+# Local bookkeeping, not part of the site.
+opencode.json
+test_login.py
+sync_users.ps1
+tunnel_keep.py
+serve_log.txt
