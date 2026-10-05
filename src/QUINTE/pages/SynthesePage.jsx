@@ -237,7 +237,7 @@ export default function Synthese() {
   const handleSearch = async () => {
     setSearching(true); setMsg('')
     try {
-      const _base = window.location.port === '5173' ? '' : 'https://backend-production-f0139.up.railway.app'
+      const _base = window.location.port === '5173' ? '' : 'https://lbahja-sa--bahja-backend-flask-app.modal.run'
       // 1) Synthèse
       const res = await fetch(`${_base}/api/synthese?date=${raceDate}`)
       const data = await res.json()

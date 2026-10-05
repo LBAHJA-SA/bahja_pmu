@@ -41,7 +41,7 @@ function formatPoids(p) {
 }
 
 const TAB_PARTANTS = 0, TAB_ARRIVEE = 1, TAB_PROBABLES = 2
-const API = window.location.port === '5173' ? '' : 'https://backend-production-f0139.up.railway.app'
+const API = window.location.port === '5173' ? '' : 'https://lbahja-sa--bahja-backend-flask-app.modal.run'
 
 function ArchiveSaveButton({ raceId }) {
   const [saving, setSaving] = useState(false)

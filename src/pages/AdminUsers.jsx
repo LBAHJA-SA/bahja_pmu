@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { fmtStamp } from '../lib/gmtTime'
 
-const REMOTE_API = 'https://backend-production-f0139.up.railway.app'
+const REMOTE_API = 'https://lbahja-sa--bahja-backend-flask-app.modal.run'
 const LOCAL_API = window.location.port === '5173' ? '' : 'http://127.0.0.1:3000'
 
 async function adminFetch(base, url, opts = {}) {

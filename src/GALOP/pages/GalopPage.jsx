@@ -51,7 +51,7 @@ export default function GalopPage(){
     if(brave?.length) tickets.forme=slim(brave)
     if(couple?.length){ const c0=couple[0]; tickets.couple=(c0.horses||[]).map(h=>({target_pos:null,num:h.num,horse:h.horse,cote:null,score:c0.count??null})) }
     try{
-      const _base=window.location.port==='5173'?'':'https://bahja-turf-api-production.up.railway.app'
+      const _base=window.location.port==='5173'?'':'https://lbahja-sa--bahja-backend-flask-app.modal.run'
       const r=await fetch(`${_base}/api/track/log`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({race:{date,rnum:sel.rnum,cnum:sel.cnum,hippodrome:hippoOf(sel.meeting),discipline:sel.course.discipline||sel.course.specialty||'',distance:sel.course.distance,runners:raceData.participants.length,time:sel.course.time||null},tickets})})
       const j=await r.json()
       if(!r.ok) throw new Error(j.error||'Erreur')

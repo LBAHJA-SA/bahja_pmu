@@ -1,4 +1,4 @@
-const REMOTE = 'https://backend-production-f0139.up.railway.app'
+const REMOTE = 'https://lbahja-sa--bahja-backend-flask-app.modal.run'
 const LOCALB = window.location.port === '5173' ? '' : ''
 const BASE = window.location.port === '5173' ? '' : REMOTE
 async function once(base, url, opts={}, timeout=30000) {

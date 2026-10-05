@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-const API = window.location.port === '5173' ? '' : 'https://bahja-turf-api-production.up.railway.app'
+const API = window.location.port === '5173' ? '' : 'https://lbahja-sa--bahja-backend-flask-app.modal.run'
 async function req(url, opts = {}) {
   const r = await fetch(`${API}${url}`, opts)
   if (!r.ok) throw new Error(`Erreur ${r.status}`)

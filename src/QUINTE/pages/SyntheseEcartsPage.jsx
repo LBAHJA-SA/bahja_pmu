@@ -11,7 +11,7 @@ export default function SyntheseEcarts() {
   const load = async (d) => {
     setLoading(true); setMsg('')
     try {
-      const base = window.location.port === '5173' ? '' : (window.location.hostname === 'localhost' ? 'http://127.0.0.1:3000' : 'https://backend-production-f0139.up.railway.app')
+      const base = window.location.port === '5173' ? '' : (window.location.hostname === 'localhost' ? 'http://127.0.0.1:3000' : 'https://lbahja-sa--bahja-backend-flask-app.modal.run')
       const res = await fetch(`${base}/api/synthese/ecarts?days=${d}`)
       if (!res.ok) {
         const err = await res.text()
