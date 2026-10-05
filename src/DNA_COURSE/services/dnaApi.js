@@ -40,7 +40,14 @@ export async function extractDnaCourse(participants, options = {}) {
   try {
     return await once(BASE, '/api/dna/extract', request)
   } catch (error) {
-    if (error.name === 'AbortError') throw new Error('Délai dépassé — réessayez')
+    // Serveur froid (Modal se réveille après inactivité) : le 1er request
+    // dépasse le timeout, le 2e passe. On retente avant d'abandonner.
+    if (error.name === 'AbortError' || error.message === 'Failed to fetch') {
+      try { return await once(BASE, '/api/dna/extract', request, 180000) } catch (e2) {
+        if (e2.name === 'AbortError') throw new Error('Délai dépassé — réessayez')
+        error = e2
+      }
+    }
     if (alternate && alternate !== BASE) {
       try { return await once(alternate, '/api/dna/extract', request) } catch { throw error }
     }

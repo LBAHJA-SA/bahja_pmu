@@ -2,7 +2,9 @@ import { useState } from 'react'
 import { fmtStamp } from '../lib/gmtTime'
 
 const REMOTE_API = 'https://lbahja-sa--bahja-backend-flask-app.modal.run'
-const LOCAL_API = window.location.port === '5173' ? '' : 'http://127.0.0.1:3000'
+// Repli local UNIQUEMENT en local (Vite = 5173). En prod il doit être '' — sinon
+// l'admin repart sur 127.0.0.1:3000 du navigateur, qui n'existe pas.
+const LOCAL_API = window.location.port === '5173' ? '' : ''
 
 async function adminFetch(base, url, opts = {}) {
   const key = localStorage.getItem('bahja-admin-key') || ''

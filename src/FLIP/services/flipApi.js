@@ -2,18 +2,26 @@ const REMOTE = 'https://lbahja-sa--bahja-backend-flask-app.modal.run'
 const LOCALB = ''
 const BASE = window.location.port === '5173' ? '' : REMOTE
 
-async function once(base, url, opts = {}) {
-  const headers = {
-    ...(opts.headers || {}),
-    'X-Session-Token': localStorage.getItem('bahja-token') || '',
-    'X-Phone': localStorage.getItem('bahja-phone') || '',
+async function once(base, url, opts = {}, timeout = 30000) {
+  const ctrl = new AbortController()
+  const timer = setTimeout(() => ctrl.abort(), timeout)
+  try {
+    const headers = {
+      ...(opts.headers || {}),
+      'X-Session-Token': localStorage.getItem('bahja-token') || '',
+      'X-Phone': localStorage.getItem('bahja-phone') || '',
+    }
+    const r = await fetch(`${base}${url}`, { ...opts, headers, signal: ctrl.signal })
+    if (!r.ok) {
+      const e = await r.json().catch(() => ({}))
+      const err = new Error(e.error || `Erreur ${r.status}`)
+      err.status = r.status
+      throw err
+    }
+    return r.json()
+  } finally {
+    clearTimeout(timer)
   }
-  const r = await fetch(`${base}${url}`, { ...opts, headers })
-  if (!r.ok) {
-    const e = await r.json().catch(() => ({}))
-    throw new Error(e.error || `Erreur ${r.status}`)
-  }
-  return r.json()
 }
 
 async function req(url, opts = {}) {
@@ -21,6 +29,10 @@ async function req(url, opts = {}) {
   try {
     return await once(BASE, url, opts)
   } catch (e) {
+    // Serveur froid (Modal se réveille) : on retente une fois.
+    if (e.name === 'AbortError' || e.message === 'Failed to fetch') {
+      try { return await once(BASE, url, opts, 90000) } catch {}
+    }
     if (alt && alt !== BASE) {
       try { return await once(alt, url, opts) } catch { throw e }
     }

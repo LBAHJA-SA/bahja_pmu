@@ -1,7 +1,10 @@
 const REMOTE_API = 'https://lbahja-sa--bahja-backend-flask-app.modal.run'
-const LEGACY_REMOTE_API = 'https://lbahja-sa--bahja-backend-flask-app.modal.run'
-const LOCAL_API = window.location.port === '5173' ? '' : 'http://127.0.0.1:3000'
-const API_BASE = window.location.port === '5173' ? LOCAL_API : REMOTE_API
+// Repli local UNIQUEMENT quand on tourne vraiment en local (Vite = port 5173).
+// En prod (port vide) le repli doit être '' : sinon chaque requête échouée
+// repart sur http://127.0.0.1:3000 du navigateur de l'utilisateur, qui n'existe
+// pas — double le délai + ERR_ABORTED dans la console, et l'app « ne marche pas ».
+const LOCAL_API = window.location.port === '5173' ? '' : ''
+const API_BASE = window.location.port === '5173' ? '' : REMOTE_API
 
 async function reqWithBase(base, url, opts, timeout) {
   const ctrl = new AbortController()
@@ -30,13 +33,19 @@ function deviceId(){
 }
 
 async function req(url, opts = {}) {
-  const timeout = opts.timeout || 15000
+  const timeout = opts.timeout || 30000
   try {
     return await reqWithBase(API_BASE, url, opts, timeout)
   } catch (e) {
-    // fallback محلي إلا كان السيرفر البعيد غير متوفر (تجربة محلية فقط)
+    // Serveur froid (Modal se réveille après inactivité) : le 1er request
+    // dépasse le timeout, le 2e passe tout seul. On retente une fois.
+    const froid = e.name === 'AbortError' || e.message === 'Failed to fetch'
+    if (froid) {
+      try { return await reqWithBase(API_BASE, url, opts, 90000) } catch {}
+    }
+    // Repli local : seulement si on tourne en local (Vite port 5173).
     if (LOCAL_API && LOCAL_API !== API_BASE) {
-      try { return await reqWithBase(LOCAL_API, url, opts) } catch {}
+      try { return await reqWithBase(LOCAL_API, url, opts, timeout) } catch {}
     }
     throw e
   }
